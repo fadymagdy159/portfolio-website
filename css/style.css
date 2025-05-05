@@ -1,0 +1,48 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  /* Navbar */
+  .navbar {
+    padding: 1rem 0;
+  }
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .nav-link {
+    color: white !important;
+    margin-right: 15px;
+  }
+  .nav-link:hover {
+    color: #17a2b8 !important;
+  }
+  
+  /* Section Padding */
+  section {
+    padding: 60px 0;
+  }
+  
+  /* Progress Bars */
+  .progress {
+    height: 25px;
+    border-radius: 10px;
+  }
+  .progress-bar {
+    transition: width 2s;
+  }
+  
+  /* Cards */
+  .card {
+    transition: transform 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Footer */
+  footer {
+    padding: 20px 0;
+  }
