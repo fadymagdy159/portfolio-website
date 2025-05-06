@@ -4,53 +4,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fady Ibrahim - Software Engineer Portfolio</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS for Scroll Animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-theme="light">
+  <!-- Loading Animation -->
+  <div class="loader">
+    <div class="loader-circle"></div>
+    <div class="loader-text">Loading...</div>
+  </div>
+
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#home">Fady Ibrahim</a>
+      <a class="navbar-brand" href="#home">FI</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
           <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
+        <div class="ms-3">
+          <button id="themeToggle" class="btn btn-outline-light">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
   <!-- Home Section -->
-  <section id="home" class="d-flex align-items-center text-center text-white" style="height: 100vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/hero-bg.jpg'); background-size: cover;">
-    <div class="container">
-      <h1 class="display-3">Hi, I'm Fady Ibrahim</h1>
-      <p class="lead">A Software Engineer Specializing in AI and Computer Vision</p>
-      <a href="#projects" class="btn btn-primary btn-lg mt-3">View My Work</a>
+  <section id="home" class="min-vh-100 d-flex align-items-center text-center">
+    <canvas class="particles-background"></canvas>
+    <div class="container" data-aos="fade-up">
+      <div class="hero-content">
+        <h1 class="display-3 fw-bold gradient-text">Fady Ibrahim</h1>
+        <div class="typewriter">
+          <p class="lead fs-4 mb-4">Crafting Code with Passion</p>
+        </div>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary btn-lg hover-effect me-3">Explore My Work ↓</a>
+          <a href="#contact" class="btn btn-outline-primary btn-lg hover-effect">Get In Touch</a>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- About Section -->
   <section id="about" class="py-5">
     <div class="container">
-      <h2 class="text-center mb-5">About Me</h2>
-      <div class="row">
-        <div class="col-md-6">
-          <p>I’m a passionate software engineer with a focus on AI and computer vision. My graduation project, an AI-based plant identification and disease detection system, achieved 99.70% accuracy using ResNet-50 and the PlantVillage dataset. I’ve also worked on projects involving hand gesture recognition and dynamic menu systems, showcasing my skills in Python, Django, and JavaScript.</p>
-          <p>I’m dedicated to solving real-world problems through technology, particularly in agriculture and human-computer interaction.</p>
+      <h2 class="text-center mb-5 section-title" data-aos="fade-down">About Me</h2>
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="about-content">
+            <p class="fs-5">I'm Fady Ibrahim, a dedicated software engineer with a rich academic and professional journey. I earned a scholarship at AUC for two years, honing my English and computer skills, and have organized events at IMSA and ushered at AUC and MSA University.</p>
+            <p class="fs-5">My training includes 60 hours at ITI in React Native and 120 hours in Python and Django, complemented by a web development course at AITB. I'm proficient with AI tools and thrive in collaborative, fast-paced environments, always eager to learn and innovate.</p>
+            <div class="about-badges mt-4">
+              <span class="badge">Python</span>
+              <span class="badge">Django</span>
+              <span class="badge">React Native</span>
+              <span class="badge">AI/ML</span>
+              <span class="badge">Full Stack</span>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6 text-center">
-          <img src="images/Profile.jpg" alt="Profile Picture" class="img-fluid rounded-circle" style="max-width: 300px;">
+        <div class="col-lg-6 text-center" data-aos="fade-left">
+          <div class="profile-container">
+            <img src="images/profile.jpg" alt="Fady Ibrahim" class="profile-image">
+            <div class="profile-border"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,32 +94,158 @@
   <!-- Projects Section -->
   <section id="projects" class="py-5 bg-light">
     <div class="container">
-      <h2 class="text-center mb-5">My Projects</h2>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card">
+      <h2 class="text-center mb-5 section-title" data-aos="fade-down">My Projects</h2>
+      
+      <!-- Featured Projects -->
+      <div class="row g-4 mb-5">
+        <div class="col-md-6" data-aos="fade-right">
+          <div class="card h-100 project-card">
             <div class="card-body">
-              <h5 class="card-title">AI Plant Identification & Disease Detection</h5>
-              <p class="card-text">Developed an AI system using ResNet-50 to identify plants and detect diseases with 99.70% accuracy. Built with Python, Django, and the PlantVillage dataset.</p>
-              <a href="https://github.com/yourusername/plant-identification" class="btn btn-primary">View on GitHub</a>
+              <div class="project-header">
+                <h5 class="card-title">AI Plant Identification & Disease Detection</h5>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                  <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+              <p class="card-text">A system using ResNet-50 achieving 99.70% accuracy for plant disease detection.</p>
+              <div class="project-tech">
+                <span>Python</span>
+                <span>TensorFlow</span>
+                <span>Computer Vision</span>
+              </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <img src="images/plant-1.png" alt="Plant Identification 1" class="img-fluid rounded mb-3 project-image">
+                </div>
+                <div class="col-6">
+                  <img src="images/plant-2.png" alt="Plant Identification 2" class="img-fluid rounded mb-3 project-image">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="card">
+        <div class="col-md-6" data-aos="fade-left">
+          <div class="card h-100 project-card">
             <div class="card-body">
-              <h5 class="card-title">Hand Gesture Recognition System</h5>
-              <p class="card-text">Created a real-time gesture recognition system using MediaPipe and dollarpy, integrated with a C# application via socket communication.</p>
-              <a href="https://github.com/yourusername/gesture-recognition" class="btn btn-primary">View on GitHub</a>
+              <div class="project-header">
+                <h5 class="card-title">E-commerce System</h5>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                  <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+              <p class="card-text">A fully functional e-commerce platform built with Django and PostgreSQL.</p>
+              <div class="project-tech">
+                <span>Django</span>
+                <span>PostgreSQL</span>
+                <span>JavaScript</span>
+              </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                  <img src="images/ecommerce-1.jpg" alt="E-commerce 1" class="img-fluid rounded mb-3 project-image">
+                </div>
+                <div class="col-6">
+                  <img src="images/ecommerce-2.png" alt="E-commerce 2" class="img-fluid rounded mb-3 project-image">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Dynamic Menu System</h5>
-              <p class="card-text">Built a dynamic menu system using Python and C#, incorporating gesture-based navigation with improved accuracy for victory sign detection.</p>
-              <a href="https://github.com/yourusername/dynamic-menu" class="btn btn-primary">View on GitHub</a>
+      </div>
+      
+      <!-- Other Projects -->
+      <h4 class="text-center mb-4 section-subtitle" data-aos="fade-down">Other Projects</h4>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fas fa-camera"></i>
+              </div>
+              <h6 class="card-title">Hand Gesture Recognition</h6>
+              <p class="card-text">Real-time recognition using MediaPipe and dollarpy.</p>
+              <div class="project-tech-small">
+                <span>Python</span>
+                <span>OpenCV</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fas fa-desktop"></i>
+              </div>
+              <h6 class="card-title">Dynamic Menu System</h6>
+              <p class="card-text">Gesture-navigated menu built with Python and C#.</p>
+              <div class="project-tech-small">
+                <span>Python</span>
+                <span>C#</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fab fa-instagram"></i>
+              </div>
+              <h6 class="card-title">Instagram Clone</h6>
+              <p class="card-text">A mock Instagram app using React Native.</p>
+              <div class="project-tech-small">
+                <span>React Native</span>
+                <span>Firebase</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <h6 class="card-title">Online Shopping System</h6>
+              <p class="card-text">Built with the MERN stack for front-end and back-end.</p>
+              <div class="project-tech-small">
+                <span>MongoDB</span>
+                <span>Express</span>
+                <span>React</span>
+                <span>Node.js</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fas fa-hospital"></i>
+              </div>
+              <h6 class="card-title">Hospital Management System</h6>
+              <p class="card-text">Developed using PHP, HTML, CSS, and Bootstrap.</p>
+              <div class="project-tech-small">
+                <span>PHP</span>
+                <span>MySQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100 project-card-small">
+            <div class="card-body text-center">
+              <div class="project-icon">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <h6 class="card-title">Mini Game</h6>
+              <p class="card-text">A simple game developed using C++.</p>
+              <div class="project-tech-small">
+                <span>C++</span>
+                <span>SFML</span>
+              </div>
             </div>
           </div>
         </div>
@@ -95,45 +256,53 @@
   <!-- Skills Section -->
   <section id="skills" class="py-5">
     <div class="container">
-      <h2 class="text-center mb-5">My Skills</h2>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-3">
-            <h6>Python</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+      <h2 class="text-center mb-5 section-title" data-aos="fade-down">My Skills</h2>
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-3" data-aos="flip-up">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-code"></i>
             </div>
-          </div>
-          <div class="mb-3">
-            <h6>Django</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <h6>Computer Vision (MediaPipe, OpenCV)</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+            <h6 class="fw-bold">Programming</h6>
+            <p>Python, C++, PHP, SQL, C#, Full-stack</p>
+            <div class="skill-progress">
+              <div class="progress-bar" style="width: 90%"></div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <h6>JavaScript</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+        <div class="col-6 col-md-3" data-aos="flip-up" data-aos-delay="100">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h6 class="fw-bold">AI & ML/DL</h6>
+            <p>ResNet-50, LLaMA, TensorFlow, PyTorch</p>
+            <div class="skill-progress">
+              <div class="progress-bar" style="width: 85%"></div>
             </div>
           </div>
-          <div class="mb-3">
-            <h6>Bootstrap</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="flip-up" data-aos-delay="200">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h6 class="fw-bold">Web Development</h6>
+            <p>Django, React Native, JavaScript, Bootstrap</p>
+            <div class="skill-progress">
+              <div class="progress-bar" style="width: 95%"></div>
             </div>
           </div>
-          <div class="mb-3">
-            <h6>AI & Machine Learning (ResNet-50)</h6>
-            <div class="progress">
-              <div class="progress-bar bg-primary" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="flip-up" data-aos-delay="300">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h6 class="fw-bold">Security</h6>
+            <p>Network security, OWASP, Secure coding</p>
+            <div class="skill-progress">
+              <div class="progress-bar" style="width: 75%"></div>
             </div>
           </div>
         </div>
@@ -144,28 +313,80 @@
   <!-- Contact Section -->
   <section id="contact" class="py-5 bg-light">
     <div class="container">
-      <h2 class="text-center mb-5">Get in Touch</h2>
-      <div class="row">
-        <div class="col-md-6 mx-auto">
-          <p class="text-center">Reach out to me via email or connect with me on social platforms.</p>
-          <div class="text-center mb-3">
-            <a href="mailto:your.email@example.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Email Me</a>
-            <a href="https://github.com/yourusername" class="btn btn-dark"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" class="btn btn-primary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <h2 class="text-center mb-5 section-title" data-aos="fade-down">Get in Touch</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="contact-container" data-aos="zoom-in">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="contact-info">
+                  <h4>Let's Connect</h4>
+                  <p>Feel free to reach out for collaborations or just to say hello!</p>
+                  <div class="contact-details">
+                    <div class="contact-item">
+                      <i class="fas fa-envelope"></i>
+                      <span>fady.magdy4@msa.edu.eg</span>
+                    </div>
+                    <div class="contact-item">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>Cairo, Egypt</span>
+                    </div>
+                  </div>
+                  <div class="social-links mt-4">
+                    <a href="https://github.com/fadymagdy159" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/fady-ibrahim-629ab8277/9" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <form id="contactForm" class="contact-form">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                  </div>
+                  <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                  </div>
+                  <div class="mb-3">
+                    <textarea class="form-control" name="message" rows="4" placeholder="Your Message" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100">
+                    <span class="submit-text">Send Message</span>
+                    <span class="sending-text d-none"><i class="fas fa-spinner fa-spin"></i> Sending...</span>
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-          <p class="text-center"><a href="path/to/resume.pdf" class="btn btn-outline-primary" download>Download My Resume</a></p>
+          <div class="text-center mt-4">
+            <a href="resume.pdf" class="btn btn-outline-primary" download>
+              <i class="fas fa-download me-2"></i>Download Resume
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Scroll to Top Button -->
+  <button id="scrollTop" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 d-none">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <!-- Footer -->
-  <footer class="py-3 bg-dark text-white text-center">
-    <p>&copy; 2025 Fady Ibrahim. All Rights Reserved.</p>
+  <footer class="py-4 text-center">
+    <div class="container">
+      <p class="mb-2">© 2025 Fady Ibrahim. All Rights Reserved.</p>
+      <p class="small">Built with <i class="fas fa-heart text-danger"></i> and lots of <i class="fas fa-coffee"></i></p>
+    </div>
   </footer>
 
   <!-- Bootstrap JS and Popper.js -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS JS for Scroll Animations -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Three.js for Particle Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Custom JS -->
   <script src="js/script.js"></script>
 </body>
