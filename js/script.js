@@ -1,4 +1,3 @@
-// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize AOS animations
   AOS.init({
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Close mobile menu if open
       const navbarCollapse = document.querySelector('.navbar-collapse');
-      if (navbarCollapse.classList.contains('show')) {
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
         navbarCollapse.classList.remove('show');
       }
       
@@ -59,95 +58,68 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Dark Mode Toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const body = document.body;
-  
-  // Check for saved theme preference
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    body.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme);
-  }
-  
-  themeToggle.addEventListener('click', function() {
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    body.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-  });
-  
-  function updateThemeIcon(theme) {
-    const icon = themeToggle.querySelector('i');
-    if (theme === 'dark') {
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-      themeToggle.setAttribute('title', 'Switch to Light Mode');
-    } else {
-      icon.classList.remove('fa-sun');
-      icon.classList.add('fa-moon');
-      themeToggle.setAttribute('title', 'Switch to Dark Mode');
-    }
-  }
-
-  // Particle Animation
+  // Particle Animation with Error Handling
   function initParticles() {
     const canvas = document.querySelector('.particles-background');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ 
-      canvas: canvas,
-      alpha: true,
-      antialias: true
-    });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    
-    // Create particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particleCount = 1000;
-    
-    const posArray = new Float32Array(particleCount * 3);
-    for(let i = 0; i < particleCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 5;
-    }
-    
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    
-    // Particle material
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.02,
-      color: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-    
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
-    
-    camera.position.z = 2;
-    
-    // Animation loop
-    function animate() {
-      requestAnimationFrame(animate);
+    const fallbackNotice = document.getElementById('fallbackNotice');
+    if (!canvas) return;
+
+    try {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas,
+        alpha: true,
+        antialias: true
+      });
       
-      particlesMesh.rotation.x += 0.0005;
-      particlesMesh.rotation.y += 0.0005;
-      
-      renderer.render(scene, camera);
-    }
-    
-    animate();
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+      
+      // Create particles
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particleCount = 500;
+      
+      const posArray = new Float32Array(particleCount * 3);
+      for(let i = 0; i < particleCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 5;
+      }
+      
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      
+      const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.02,
+        color: getComputedStyle(document.documentElement).getPropertyValue('--primary').trim(),
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+      
+      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particlesMesh);
+      
+      camera.position.z = 2;
+      
+      function animate() {
+        requestAnimationFrame(animate);
+        if (particlesMesh) {
+          particlesMesh.rotation.x += 0.0005;
+          particlesMesh.rotation.y += 0.0005;
+        }
+        renderer.render(scene, camera);
+      }
+      
+      animate();
+      
+      window.addEventListener('resize', function() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    } catch (error) {
+      console.error('Particle animation failed:', error);
+      if (fallbackNotice) fallbackNotice.style.display = 'block';
+      canvas.style.display = 'none';
+    }
   }
   
   // Initialize particles if canvas exists
@@ -155,37 +127,50 @@ document.addEventListener('DOMContentLoaded', function() {
     initParticles();
   }
 
-  // Form submission
+  // Form submission with Formspree
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const submitBtn = this.querySelector('button[type="submit"]');
       const submitText = submitBtn.querySelector('.submit-text');
       const sendingText = submitBtn.querySelector('.sending-text');
       
-      // Show sending state
       submitText.classList.add('d-none');
       sendingText.classList.remove('d-none');
       submitBtn.disabled = true;
-      
-      // Simulate form submission (replace with actual AJAX call)
-      setTimeout(function() {
-        // Reset form
-        contactForm.reset();
-        
-        // Show success message
-        submitText.textContent = 'Message Sent!';
+
+      try {
+        const formData = new FormData(this);
+        const response = await fetch(this.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          contactForm.reset();
+          submitText.textContent = 'Message Sent!';
+          submitText.classList.remove('d-none');
+          sendingText.classList.add('d-none');
+          
+          setTimeout(function() {
+            submitText.textContent = 'Send';
+            submitBtn.disabled = false;
+          }, 3000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        submitText.textContent = 'Error Sending';
         submitText.classList.remove('d-none');
         sendingText.classList.add('d-none');
-        
-        // Reset button after delay
-        setTimeout(function() {
-          submitText.textContent = 'Send Message';
-          submitBtn.disabled = false;
-        }, 3000);
-      }, 2000);
+        submitBtn.disabled = false;
+      }
     });
   }
 
